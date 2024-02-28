@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Encryption</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+    label {
+        font-weight: bold;
+        color: #333;
+    }
+    textarea, input, button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    
+
+<h2>Text Encryption</h2>
+
+<label for="plaintext">Enter Text to Encrypt:</label><br>
+<textarea id="plaintext" rows="4" placeholder="Enter your text..." required></textarea><br>
+
+<button onclick="encryptText()">Encrypt</button><br>
+
+<label for="ciphertext">Encrypted Text:</label><br>
+<textarea id="ciphertext" rows="4" readonly></textarea><br>
+
+<label for="cipherkey">Cipher Key:</label><br>
+<input type="text" id="cipherkey" readonly><br>
+
+<button onclick="decryptText()">Decrypt</button><br> <!-- New Decrypting Button -->
+
+<script>
+function encryptText() {
+    var plaintext = document.getElementById("plaintext").value;
+    var key = generateKey();
+    var ciphertext = "";
+    for (var i = 0; i < plaintext.length; i++) {
+        var charCode = plaintext.charCodeAt(i);
+        ciphertext += String.fromCharCode(charCode + key);
+    }
+    document.getElementById("ciphertext").value = ciphertext;
+    document.getElementById("cipherkey").value = key;
+}
+
+function decryptText() {
+    var ciphertext = document.getElementById("ciphertext").value;
+    var key = document.getElementById("cipherkey").value;
+    window.location.href = "decrypt.html?ciphertext=" + encodeURIComponent(ciphertext) + "&key=" + encodeURIComponent(key);
+}
+
+function generateKey() {
+    return Math.floor(Math.random() * 100) + 1; // Generate a random key between 1 and 100
+}
+</script>
+
+</div>
+
+</body>
+</html>

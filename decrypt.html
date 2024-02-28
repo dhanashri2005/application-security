@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Decryption</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+    label {
+        font-weight: bold;
+        color: #333;
+    }
+    textarea, input, button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h2>Text Decryption</h2>
+
+<label for="encryptedText">Encrypted Text:</label><br>
+<textarea id="encryptedText" rows="4" readonly></textarea><br>
+
+<label for="cipherKey">Enter Cipher Key:</label><br>
+<input type="text" id="cipherKey"><br>
+
+<button onclick="decrypt()">Decrypt</button><br>
+
+<p id="decryptedMessage"></p>
+
+<script>
+window.onload = function() {
+    var params = new URLSearchParams(window.location.search);
+    var ciphertext = params.get('ciphertext');
+    var key = params.get('key');
+    document.getElementById("encryptedText").value = ciphertext;
+}
+
+function decrypt() {
+    var ciphertext = document.getElementById("encryptedText").value;
+    var key = document.getElementById("cipherKey").value;
+    var decryptedMessage = "";
+    for (var i = 0; i < ciphertext.length; i++) {
+        var charCode = ciphertext.charCodeAt(i);
+        decryptedMessage += String.fromCharCode(charCode - key);
+    }
+    var originalText = decryptedMessage.replace(/\\n/g, "\n");
+    var userKey = document.getElementById("cipherKey").value;
+    if (userKey == key) {
+        document.getElementById("decryptedMessage").innerText = "Decrypted Message: " + originalText;
+    } else {
+        document.getElementById("decryptedMessage").innerText = "Cipher key doesn't match.";
+    }
+}
+</script>
+
+</div>
+
+</body>
+</html>

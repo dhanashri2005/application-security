@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Signup</title> 
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #5a8eb1;
+  background-image: url('sign.jpg');
+  background-size: cover;
+  background-position: center;
+  margin: auto;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  padding: 70px;
+  background-color: rgba(255, 255, 255, 0.8); /* semi-transparent white */
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #007bff; /* primary color */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333; /* dark gray */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form action="signup.html" method="POST" id="signupForm">
+      <h2>Sign Up</h2>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <div id="passwordError" class="error"></div>
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+
+  <script>
+     
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      if (validatePasswords()) {
+        redirectToLogin();
+      }
+    });
+
+    function redirectToLogin() {
+  var username = document.getElementById('username').value.trim();
+  var password = document.getElementById('password').value.trim();
+  window.location.href = "login.html?username=" +encodeURIComponent(username)+ "&password=" + encodeURIComponent(password);
+}
+
+    function validatePasswords() {
+      var password = document.getElementById('password').value.trim();
+      var confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+      if (password !== confirmPassword) {
+        document.getElementById('passwordError').innerText = 'Passwords do not match.';
+        return false;
+      } else {
+        document.getElementById('passwordError').innerText = '';
+        return true;
+      }
+    }
+  </script>
+</body>
+</html>
